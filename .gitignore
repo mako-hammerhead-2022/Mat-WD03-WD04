@@ -12,6 +12,9 @@
 /build
 
 # misc
+.env
+bundle.*
+dev.sqlite3
 .DS_Store
 .env.local
 .env.development.local
