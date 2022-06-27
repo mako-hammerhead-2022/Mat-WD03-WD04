@@ -1,7 +1,5 @@
 import request from 'superagent'
 
-const PORT = process.env.PORT || 3000
-
 const serverURL = `/api`
 
 export function getHelloWorld() {

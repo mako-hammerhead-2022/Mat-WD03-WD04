@@ -1,5 +1,4 @@
 const path = require('path')
-const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: path.resolve('./client/index.js'),
@@ -24,5 +23,4 @@ module.exports = {
   devServer: {
     contentBase: path.resolve('../server/public'),
   },
-  plugins: [new Dotenv({ systemvars: true })],
 }
