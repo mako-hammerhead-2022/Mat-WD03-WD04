@@ -1,5 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import Home from '../components/Home'
+
+require('@testing-library/jest-dom')
 
 const testProducts = [
   { id: 1, name: 'Stick', description: 'Very pointy', price: 2.5 },

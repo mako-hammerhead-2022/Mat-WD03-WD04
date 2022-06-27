@@ -1,5 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import ProductListing from '../components/ProductListing'
+
+require('@testing-library/jest-dom')
 
 describe('<ProductListing />', () => {
   it('renders a product name', () => {

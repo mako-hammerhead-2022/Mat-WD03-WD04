@@ -15,7 +15,8 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-react"
+      "@babel/preset-react",
+      "@babel/preset-env"
     ]
   },
   "eslintConfig": {
@@ -30,12 +31,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "babel-loader": "^8.2.5",
     "dotenv": "^16.0.1",
     "dotenv-webpack": "^7.1.1",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
+    "jsdom": "^20.0.0",
     "nodemon": "^2.0.18",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
