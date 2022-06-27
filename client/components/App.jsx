@@ -9,7 +9,6 @@ function App() {
     getHelloWorld()
       .then((res) => {
         setHelloWorld(res.message)
-        console.log(process.env)
       })
       .catch((err) => {
         console.error(err)
