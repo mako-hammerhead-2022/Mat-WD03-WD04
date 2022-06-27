@@ -24,5 +24,5 @@ module.exports = {
   devServer: {
     contentBase: path.resolve('../server/public'),
   },
-  plugins: [new Dotenv()],
+  plugins: [new Dotenv({ systemvars: true })],
 }
