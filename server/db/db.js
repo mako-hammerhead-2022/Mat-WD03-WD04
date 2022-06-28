@@ -9,7 +9,17 @@ function getUserById(id, db = connection) {
   return db('users').select().where({ id }).first()
 }
 
+function getProducts(db = connection) {
+  return db('products').select()
+}
+
+function getProductById(id, db = connection) {
+  return db('products').select().where({ id }).first()
+}
+
 module.exports = {
   getUsers,
   getUserById,
+  getProducts,
+  getProductById,
 }

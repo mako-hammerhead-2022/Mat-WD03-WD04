@@ -35,3 +35,25 @@ describe('getUserById', () => {
     expect(actual.username).toBe('Bob')
   })
 })
+
+describe('getProducts', () => {
+  it('returns an array of products', async () => {
+    const actual = await db.getProducts(testDb)
+
+    expect(actual).toHaveLength(2)
+    expect(actual[0].name).toBe('Stick')
+  })
+})
+
+describe('getProductById', () => {
+  it('returns a product object with correct details', async () => {
+    const actual = await db.getProductById(2, testDb)
+
+    expect(typeof actual).toBe('object')
+    expect(actual.id).toBe(2)
+    expect(actual.name).toBe('Paperclip')
+    expect(actual.description).toBe('Eager to help')
+    expect(actual.price).toBe(10)
+    expect(actual.quantity).toBe(1)
+  })
+})
