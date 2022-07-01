@@ -14,4 +14,17 @@ router.get('/users', async (req, res) => {
   }
 })
 
+// GET /api/user/:id
+router.get('/user/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    const user = await db.getUserById(id)
+    if (!user) res.status(404).send(`User with id ${id} not found`)
+    res.json(user)
+  } catch (err) {
+    //console.error(err)
+    res.status(500).send('Server Error')
+  }
+})
+
 module.exports = router
