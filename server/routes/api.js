@@ -1,13 +1,15 @@
 const express = require('express')
+const db = require('../db/db')
 
 const router = express.Router()
 
-// GET /api/
-router.get('/', (req, res) => {
+// GET /api/users
+router.get('/users', async (req, res) => {
   try {
-    res.json({ message: 'Hello world!' })
+    const usersArr = await db.getUsers()
+    res.json(usersArr)
   } catch (err) {
-    console.error(err)
+    //console.error(err)
     res.status(500).send('Server Error')
   }
 })
