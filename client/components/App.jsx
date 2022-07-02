@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
 import Home from './Home'
 
 import { getProducts } from '../apiClient'
+import { fetchProducts } from '../actions'
 
 function App() {
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+  const products = useSelector((state) => state.products)
 
   useEffect(() => {
-    getProducts()
-      .then((res) => {
-        setProducts(res)
-      })
-      .catch((err) => console.error(err))
-  })
+    dispatch(fetchProducts())
+  }, [])
 
   return (
     <div className="main">
