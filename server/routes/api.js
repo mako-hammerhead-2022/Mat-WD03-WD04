@@ -27,4 +27,28 @@ router.get('/user/:id', async (req, res) => {
   }
 })
 
+// GET /api/products
+router.get('/products', async (req, res) => {
+  try {
+    const productsArr = await db.getProducts()
+    res.json(productsArr)
+  } catch (err) {
+    //console.error(err)
+    res.status(500).send('Server Error')
+  }
+})
+
+// GET /api/product/:id
+router.get('/product/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  try {
+    const product = await db.getProductById(id)
+    if (!product) res.status(404).send(`Product with id ${id} not found`)
+    res.json(product)
+  } catch (err) {
+    //console.error(err)
+    res.status(500).send('Server Error')
+  }
+})
+
 module.exports = router

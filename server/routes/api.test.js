@@ -1,7 +1,7 @@
 import request from 'supertest'
 
 import server from '../server'
-import { getUsers, getUserById } from '../db/db'
+import { getUsers, getUserById, getProducts, getProductById } from '../db/db'
 
 jest.mock('../db/db')
 
@@ -78,6 +78,104 @@ describe('GET /api/user/:id', () => {
       .expect(404)
       .then((res) => {
         expect(res.text).toBe(`User with id ${testUser.id + 1} not found`)
+      })
+  })
+})
+
+describe('GET /api/products', () => {
+  const testProducts = [
+    {
+      id: 1,
+      name: 'Stick',
+      description: 'Very pointy',
+      price: 2.5,
+      quantity: 10,
+      image: undefined,
+    },
+    {
+      id: 2,
+      name: 'Paperclip',
+      description: 'Eager to help',
+      price: 10,
+      quantity: 1,
+      image: undefined,
+    },
+  ]
+
+  it('responds with an array of products on getProducts resolution', () => {
+    getProducts.mockImplementationOnce(() => Promise.resolve(testProducts))
+
+    expect.assertions(3)
+    return request(server)
+      .get('/api/products')
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toHaveLength(testProducts.length)
+        expect(res.body[0]).toEqual(testProducts[0])
+        expect(res.body[1]).toEqual(testProducts[1])
+      })
+  })
+
+  it('responds with a 500 status and error on getProducts rejection', () => {
+    getProducts.mockImplementationOnce(() => Promise.reject('mock DB error'))
+
+    return request(server)
+      .get('/api/products')
+      .expect(500)
+      .then((res) => {
+        expect(res.text).not.toBe('mock DB error') // don't show client db errors
+        expect(res.text).toBe('Server Error')
+      })
+  })
+})
+
+describe('GET /api/product/:id', () => {
+  const testProduct = {
+    id: 2,
+    name: 'Paperclip',
+    description: 'Eager to help',
+    price: 10,
+    quantity: 1,
+    image: undefined,
+  }
+
+  it('responds with a product object on getProductById resolution', () => {
+    getProductById.mockImplementationOnce(() => Promise.resolve(testProduct))
+
+    expect.assertions(4)
+    return request(server)
+      .get(`/api/product/${testProduct.id}`)
+      .expect(200)
+      .then((res) => {
+        expect(res.body.id).toBe(testProduct.id)
+        expect(res.body.name).toBe(testProduct.name)
+        expect(res.body.description).toBe(testProduct.description)
+        expect(res.body.price).toBe(testProduct.price)
+      })
+  })
+
+  it('responds with a 500 status and error on getProductById rejection', () => {
+    getProductById.mockImplementationOnce(() => Promise.reject('mock DB error'))
+
+    expect.assertions(2)
+    return request(server)
+      .get(`/api/product/${testProduct.id}`)
+      .expect(500)
+      .then((res) => {
+        expect(res.text).not.toBe('mock DB error') // don't show client db errors
+        expect(res.text).toBe('Server Error')
+      })
+  })
+
+  it('responds with a 404 status and error if no product with id exists', () => {
+    getProductById.mockImplementationOnce(() => Promise.resolve(undefined))
+
+    expect.assertions(1)
+    return request(server)
+      .get(`/api/product/${testProduct.id + 1}`)
+      .expect(404)
+      .then((res) => {
+        expect(res.text).toBe(`Product with id ${testProduct.id + 1} not found`)
       })
   })
 })
