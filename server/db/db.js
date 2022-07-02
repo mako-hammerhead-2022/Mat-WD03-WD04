@@ -17,9 +17,14 @@ function getProductById(id, db = connection) {
   return db('products').select().where({ id }).first()
 }
 
+function addProduct(name, description, price, db = connection) {
+  return db('products').insert({ name, description, price })
+}
+
 module.exports = {
   getUsers,
   getUserById,
   getProducts,
   getProductById,
+  addProduct,
 }

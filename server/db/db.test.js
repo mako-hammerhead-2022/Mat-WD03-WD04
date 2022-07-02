@@ -57,3 +57,24 @@ describe('getProductById', () => {
     expect(actual.quantity).toBe(1)
   })
 })
+
+describe('addProduct', () => {
+  it('adds a product to the products table', async () => {
+    const toAdd = {
+      name: 'Test product',
+      description: 'Good for testing',
+      price: 3.5,
+    }
+    const newIds = await db.addProduct(
+      toAdd.name,
+      toAdd.description,
+      toAdd.price,
+      testDb
+    )
+    const actual = await db.getProductById(newIds[0], testDb)
+
+    expect(actual.name).toBe(toAdd.name)
+    expect(actual.description).toBe(toAdd.description)
+    expect(actual.price).toBe(toAdd.price)
+  })
+})
