@@ -1,32 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import Home from './Home'
 
-import { getHelloWorld } from '../apiClient'
-
-const sampleProducts = [
-  { id: 1, name: 'Stick', description: 'Very pointy', price: 2.5 },
-  { id: 2, name: 'Paperclip', description: 'Eager to help', price: 10 },
-]
+import { getProducts } from '../apiClient'
 
 function App() {
-  const [helloWorld, setHelloWorld] = useState('')
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    getHelloWorld()
+    getProducts()
       .then((res) => {
-        setHelloWorld(res.message)
+        setProducts(res)
       })
-      .catch((err) => {
-        console.error(err)
-      })
+      .catch((err) => console.error(err))
   })
 
   return (
-    <>
-      <h1>{helloWorld}</h1>
-      <Home products={sampleProducts} />
-    </>
+    <div className="main">
+      <Routes>
+        <Route path="/" element={<Home products={products} />} />
+      </Routes>
+    </div>
   )
 }
 
