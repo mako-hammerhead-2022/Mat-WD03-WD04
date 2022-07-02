@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ProductListing from './ProductListing'
 
-function Home(props) {
-  const { products } = props
+import { fetchProducts } from '../actions'
+
+function Home() {
+  const dispatch = useDispatch()
+  const products = useSelector((state) => state.products)
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
 
   return (
     <>
