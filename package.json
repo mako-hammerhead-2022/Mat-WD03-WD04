@@ -12,7 +12,8 @@
     "webpack": "webpack --config ./client/webpack.config.js",
     "build": "npm run webpack",
     "knex": "knex --knexfile server/db/knexfile.js",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "gh-actions-test": "jest --forceExit --detectOpenHandles"
   },
   "babel": {
     "presets": [
