@@ -51,4 +51,23 @@ router.get('/product/:id', async (req, res) => {
   }
 })
 
+// POST /api/product
+router.post('/product', async (req, res) => {
+  const { name, description, price } = req.body
+
+  if (
+    typeof name !== 'string' ||
+    typeof description !== 'string' ||
+    typeof price !== 'number'
+  ) {
+    return res.status(500).send('POST data malformed')
+  }
+  try {
+    const newIds = await db.addProduct(name, description, price)
+    res.status(200).send(`Added new item with ID ${newIds[0]}`)
+  } catch (err) {
+    res.status(500).send('Server Error')
+  }
+})
+
 module.exports = router

@@ -1,7 +1,13 @@
 import request from 'supertest'
 
 import server from '../server'
-import { getUsers, getUserById, getProducts, getProductById } from '../db/db'
+import {
+  getUsers,
+  getUserById,
+  getProducts,
+  getProductById,
+  addProduct,
+} from '../db/db'
 
 jest.mock('../db/db')
 
@@ -176,6 +182,45 @@ describe('GET /api/product/:id', () => {
       .expect(404)
       .then((res) => {
         expect(res.text).toBe(`Product with id ${testProduct.id + 1} not found`)
+      })
+  })
+})
+
+describe('POST /api/product', () => {
+  const testProduct = {
+    name: 'Test product',
+    description: 'Good for testing',
+    price: 10.5,
+  }
+  it('calls the addProduct db function with correct data', () => {
+    const fakeAddProduct = jest.fn().mockResolvedValue([7])
+    addProduct.mockImplementation(fakeAddProduct)
+
+    expect.assertions(2)
+    return request(server)
+      .post('/api/product')
+      .send(testProduct)
+      .expect(200)
+      .then((res) => {
+        expect(res.text).toContain('ID 7')
+        expect(fakeAddProduct).toHaveBeenCalledWith(
+          testProduct.name,
+          testProduct.description,
+          testProduct.price
+        )
+      })
+  })
+  it('responds with a 500 status and error if the posted data is malformed', () => {
+    const fakeAddProduct = jest.fn().mockResolvedValue([7])
+    addProduct.mockImplementation(fakeAddProduct)
+
+    expect.assertions(1)
+    return request(server)
+      .post('/api/product')
+      .send({ name: 'blah', price: '5', description: 'blah blah' })
+      .expect(500)
+      .then((res) => {
+        expect(fakeAddProduct).not.toHaveBeenCalled()
       })
   })
 })
