@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 function ProductListing(props) {
   const { id } = props
-  const { name, description, price } = useSelector((state) =>
+  const { name, description, price, image } = useSelector((state) =>
     state.products.find((p) => p.id === id)
   )
 
@@ -13,11 +13,16 @@ function ProductListing(props) {
   })
 
   return (
-    <>
+    <div className="product-listing">
       <h4>{name}</h4>
-      <p>{description}</p>
+      {image ? (
+        <img src={`/images/${image}`} />
+      ) : (
+        <img src="/images/placeholder.svg" />
+      )}
+      <div className="product-description">{description}</div>
       <p>{currency.format(price)}</p>
-    </>
+    </div>
   )
 }
 

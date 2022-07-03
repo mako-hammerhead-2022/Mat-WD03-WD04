@@ -11,14 +11,14 @@ exports.seed = async function (knex) {
       description: 'Very pointy',
       price: 2.5,
       quantity: 10,
-      image: undefined,
+      image: 'stick.jpg',
     },
     {
       name: 'Paperclip',
       description: 'Eager to help',
       price: 10,
       quantity: 1,
-      image: undefined,
+      image: 'clippy.png',
     },
   ])
 }

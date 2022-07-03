@@ -13,7 +13,7 @@ function Home() {
   }, [])
 
   return (
-    <>
+    <div className="products-home">
       <h2>Items Available to Purchase</h2>
       <ul className="product-list">
         {products.map((p) => (
@@ -22,7 +22,7 @@ function Home() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
 
