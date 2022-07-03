@@ -11,3 +11,10 @@ export function getProductById(id) {
     .get(`${serverURL}/product/${id}`)
     .then((response) => response.body)
 }
+
+export function addNewProduct(name, description, price) {
+  return request
+    .post(`${serverURL}/product`)
+    .send({ name, description, price })
+    .then((response) => response.body)
+}
