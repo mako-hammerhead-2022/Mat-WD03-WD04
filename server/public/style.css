@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body {
+  background-color: #f2a70d;
+  margin: 0;
+}
+
+.title-heading {
+  color: #0d58f2;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 5rem;
+  letter-spacing: 10px;
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+}
+
+nav {
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 5px;
+  width: 100%;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0 100px;
+  padding: 0;
+}
+
+nav ul li a {
+  display: inline-block;
+  text-align: center; 
+  text-decoration: none;
+  color: #0d58f2;
+  font-size: 1.5rem;
+  width: 75px;
+  margin: 20px;
+  padding: 5px;
+  border: 5px solid #0d58f2;
+}
+
+nav ul li a:hover {
+  background-color: #0d58f2;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  nav ul {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  nav ul li {
+  }
+  
+}
+
+@media screen and (max-width: 320px) {
+  .title-heading {
+    font-size: 4rem;
+  }
+
+  nav {
+    margin: 0;
+    padding: 0;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  nav ul li a {
+    text-decoration: underline;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    font-size: 1.2rem;
+  }
+}

@@ -8,7 +8,6 @@ import AdminPanel from './AdminPanel'
 function App() {
   return (
     <div className="main">
-      <h1>Tickets</h1>
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
